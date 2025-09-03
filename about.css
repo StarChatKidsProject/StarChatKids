@@ -1,0 +1,77 @@
+/* General */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #fafafa;
+  color: #333;
+}
+a {
+  color: #0077cc;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Navbar */
+.navbar {
+  background: #1d3557;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+}
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.navbar ul li a {
+  color: white;
+  font-weight: bold;
+}
+.navbar ul li a.active {
+  color: #ffcc29;
+}
+.logo {
+  font-size: 1.5rem;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #1d3557, #457b9d);
+  color: white;
+}
+
+/* Section & Cards */
+section {
+  padding: 50px 20px;
+}
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #1d3557;
+  margin-bottom: 20px;
+}
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin: 0 auto 30px;
+  max-width: 800px;
+}
+ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1d3557;
+  color: white;
+}
