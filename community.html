@@ -2,171 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>P-Chessbot Community Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P-ChessBot Community</title>
   <link rel="stylesheet" href="style3.css">
 </head>
 <body>
   <header>
-    <div class="logo">♟ P-Chessbot Hub</div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="docs.html">Docs</a>
-      <a href="download.html">Download</a>
-      <a href="community.html" class="active">Community</a>
+      <h1>P-ChessBot</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a class="active" href="community.html">Community</a></li>
+      </ul>
     </nav>
   </header>
 
   <main>
-    <section class="intro">
-      <h1>Welcome to the Community</h1>
-      <p>Discuss strategies, share feedback, and connect with other players of <strong>P-Chessbot</strong>.</p>
+    <section class="hero">
+      <h2>Welcome to the Community Hub</h2>
+      <p>Connect with other chess enthusiasts, contribute to development, and stay updated with the latest news about <strong>P-ChessBot</strong>.</p>
     </section>
 
-    <!-- New Post Form -->
-    <!-- New Post Form -->
-<section class="new-post card">
-  <h2>Start a New Discussion</h2>
-  <form id="newPostForm">
-    <input type="hidden" name="parent_id" value="">
-    <input type="text" name="name" placeholder="👤 Your name" required>
-    <textarea name="message" placeholder="💬 Share your thoughts..." required></textarea>
-    <button type="submit">Post</button>
-  </form>
-</section>
+    <section class="cards">
+      <div class="card">
+        <h3>💬 Join Discussions</h3>
+        <p>Participate in strategy discussions, suggest improvements, or share feedback on GitHub Discussions.</p>
+        <a href="https://github.com/StarChatKidsProject/P-chessbot-Project/discussions" target="_blank">Go to Discussions</a>
+      </div>
 
-    <!-- Messages -->
-    <section id="messages"></section>
+      <div class="card">
+        <h3>🐞 Report Issues</h3>
+        <p>If you spot a bug or unexpected behavior, report it on GitHub so we can improve together.</p>
+        <a href="https://github.com/StarChatKidsProject/P-chessbot-Project/issues" target="_blank">Report an Issue</a>
+      </div>
+
+      <div class="card">
+        <h3>📖 Contribute</h3>
+        <p>Want to help improve the engine? Contribute by coding, testing, or writing documentation.</p>
+        <a href="https://github.com/StarChatKidsProject/P-chessbot-Project" target="_blank">View Repository</a>
+      </div>
+
+      <div class="card">
+        <h3>🌍 Stay Connected</h3>
+        <p>Follow updates and connect with developers and players interested in chess AI and engines.</p>
+        <a href="https://github.com/StarChatKidsProject" target="_blank">Follow Project</a>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <p>Made with ♟ by the P-Chessbot Community</p>
+    <p>© 2025 P-ChessBot Project. Built with ❤️ for the community.</p>
   </footer>
-
-  <script>
-    async function fetchMessages() {
-      const res = await fetch("/messages");
-      const data = await res.json();
-
-      // Organize replies
-      const byId = {};
-      data.forEach(msg => { msg.replies = []; byId[msg.id] = msg; });
-      const roots = [];
-      data.forEach(msg => {
-        if (msg.parent_id) {
-          byId[msg.parent_id]?.replies.push(msg);
-        } else {
-          roots.push(msg);
-        }
-      });
-
-      function renderMessage(msg) {
-        return `
-          <div class="message card">
-            <div class="msg-header">
-              <span class="author">👤 ${msg.name}</span>
-              <span class="time">${new Date(msg.created_at).toLocaleString()}</span>
-            </div>
-            <p class="msg-body">${msg.message}</p>
-            <details>
-              <summary>↩️ Reply</summary>
-              <form class="reply-form" action="/message" method="POST">
-                <input type="hidden" name="parent_id" value="${msg.id}">
-                <input type="text" name="name" placeholder="👤 Your name" required>
-                <textarea name="message" placeholder="💬 Write a reply..." required></textarea>
-                <button type="submit">Reply</button>
-              </form>
-            </details>
-            <div class="replies">
-              ${msg.replies.map(renderMessage).join("")}
-            </div>
-          </div>
-        `;
-      }
-
-      document.getElementById("messages").innerHTML = roots.map(renderMessage).join("");
-    }
-
-    fetchMessages();
-  </script>
-  <script>
-async function fetchMessages() {
-  const res = await fetch("/messages");
-  const data = await res.json();
-
-  // Organize replies
-  const byId = {};
-  data.forEach(msg => { msg.replies = []; byId[msg.id] = msg; });
-  const roots = [];
-  data.forEach(msg => {
-    if (msg.parent_id) {
-      byId[msg.parent_id]?.replies.push(msg);
-    } else {
-      roots.push(msg);
-    }
-  });
-
-  function renderMessage(msg) {
-    return `
-      <div class="message card">
-        <div class="msg-header">
-          <span class="author">👤 ${msg.name}</span>
-          <span class="time">${new Date(msg.created_at).toLocaleString()}</span>
-        </div>
-        <p class="msg-body">${msg.message}</p>
-        <details>
-          <summary>↩️ Reply</summary>
-          <form class="replyForm" data-parent="${msg.id}">
-            <input type="text" name="name" placeholder="👤 Your name" required>
-            <textarea name="message" placeholder="💬 Write a reply..." required></textarea>
-            <button type="submit">Reply</button>
-          </form>
-        </details>
-        <div class="replies">${msg.replies.map(renderMessage).join("")}</div>
-      </div>
-    `;
-  }
-
-  document.getElementById("messages").innerHTML = roots.map(renderMessage).join("");
-
-  // attach reply handlers
-  document.querySelectorAll(".replyForm").forEach(form => {
-    form.addEventListener("submit", async e => {
-      e.preventDefault();
-      const parent_id = form.dataset.parent;
-      const name = form.name.value;
-      const message = form.message.value;
-      await sendMessage({ name, message, parent_id });
-      form.reset();
-      fetchMessages();
-    });
-  });
-}
-
-async function sendMessage({ name, message, parent_id }) {
-  const res = await fetch("/message", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, message, parent_id })
-  });
-  if (!res.ok) {
-    alert("Error saving message");
-  }
-}
-
-// handle new post form
-document.getElementById("newPostForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const form = e.target;
-  const name = form.name.value;
-  const message = form.message.value;
-  await sendMessage({ name, message });
-  form.reset();
-  fetchMessages();
-});
-
-fetchMessages();
-</script>
-
 </body>
 </html>
